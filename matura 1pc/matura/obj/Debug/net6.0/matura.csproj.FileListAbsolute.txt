@@ -1,0 +1,127 @@
+C:\Users\mache\OneDrive\Plocha\matura\matura\bin\Debug\net6.0\matura.exe
+C:\Users\mache\OneDrive\Plocha\matura\matura\bin\Debug\net6.0\matura.deps.json
+C:\Users\mache\OneDrive\Plocha\matura\matura\bin\Debug\net6.0\matura.runtimeconfig.json
+C:\Users\mache\OneDrive\Plocha\matura\matura\bin\Debug\net6.0\matura.dll
+C:\Users\mache\OneDrive\Plocha\matura\matura\bin\Debug\net6.0\matura.pdb
+C:\Users\mache\OneDrive\Plocha\matura\matura\obj\Debug\net6.0\matura.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mache\OneDrive\Plocha\matura\matura\obj\Debug\net6.0\matura.AssemblyInfoInputs.cache
+C:\Users\mache\OneDrive\Plocha\matura\matura\obj\Debug\net6.0\matura.AssemblyInfo.cs
+C:\Users\mache\OneDrive\Plocha\matura\matura\obj\Debug\net6.0\matura.csproj.CoreCompileInputs.cache
+C:\Users\mache\OneDrive\Plocha\matura\matura\obj\Debug\net6.0\matura.dll
+C:\Users\mache\OneDrive\Plocha\matura\matura\obj\Debug\net6.0\refint\matura.dll
+C:\Users\mache\OneDrive\Plocha\matura\matura\obj\Debug\net6.0\matura.pdb
+C:\Users\mache\OneDrive\Plocha\matura\matura\obj\Debug\net6.0\matura.genruntimeconfig.cache
+C:\Users\mache\OneDrive\Plocha\matura\matura\obj\Debug\net6.0\ref\matura.dll
+E:\maturujes\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.exe
+E:\maturujes\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.deps.json
+E:\maturujes\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.runtimeconfig.json
+E:\maturujes\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.dll
+E:\maturujes\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.pdb
+E:\maturujes\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.GeneratedMSBuildEditorConfig.editorconfig
+E:\maturujes\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfoInputs.cache
+E:\maturujes\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfo.cs
+E:\maturujes\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.csproj.CoreCompileInputs.cache
+E:\maturujes\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.dll
+E:\maturujes\maturita programko 1pc\matura\matura\obj\Debug\net6.0\refint\matura.dll
+E:\maturujes\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.pdb
+E:\maturujes\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.genruntimeconfig.cache
+E:\maturujes\maturita programko 1pc\matura\matura\obj\Debug\net6.0\ref\matura.dll
+E:\maturujes2\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.exe
+E:\maturujes2\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.deps.json
+E:\maturujes2\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.runtimeconfig.json
+E:\maturujes2\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.dll
+E:\maturujes2\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.pdb
+E:\maturujes2\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.GeneratedMSBuildEditorConfig.editorconfig
+E:\maturujes2\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfoInputs.cache
+E:\maturujes2\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfo.cs
+E:\maturujes2\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.csproj.CoreCompileInputs.cache
+E:\maturujes2\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.dll
+E:\maturujes2\maturita programko 1pc\matura\matura\obj\Debug\net6.0\refint\matura.dll
+E:\maturujes2\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.pdb
+E:\maturujes2\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.genruntimeconfig.cache
+E:\maturujes2\maturita programko 1pc\matura\matura\obj\Debug\net6.0\ref\matura.dll
+E:\maturujes3\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.exe
+E:\maturujes3\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.deps.json
+E:\maturujes3\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.runtimeconfig.json
+E:\maturujes3\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.dll
+E:\maturujes3\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.pdb
+E:\maturujes3\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.GeneratedMSBuildEditorConfig.editorconfig
+E:\maturujes3\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfoInputs.cache
+E:\maturujes3\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfo.cs
+E:\maturujes3\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.csproj.CoreCompileInputs.cache
+E:\maturujes3\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.dll
+E:\maturujes3\maturita programko 1pc\matura\matura\obj\Debug\net6.0\refint\matura.dll
+E:\maturujes3\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.pdb
+E:\maturujes3\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.genruntimeconfig.cache
+E:\maturujes3\maturita programko 1pc\matura\matura\obj\Debug\net6.0\ref\matura.dll
+E:\maturujes4\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.exe
+E:\maturujes4\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.deps.json
+E:\maturujes4\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.runtimeconfig.json
+E:\maturujes4\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.dll
+E:\maturujes4\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.pdb
+E:\maturujes4\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.GeneratedMSBuildEditorConfig.editorconfig
+E:\maturujes4\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfoInputs.cache
+E:\maturujes4\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfo.cs
+E:\maturujes4\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.csproj.CoreCompileInputs.cache
+E:\maturujes4\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.dll
+E:\maturujes4\maturita programko 1pc\matura\matura\obj\Debug\net6.0\refint\matura.dll
+E:\maturujes4\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.pdb
+E:\maturujes4\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.genruntimeconfig.cache
+E:\maturujes4\maturita programko 1pc\matura\matura\obj\Debug\net6.0\ref\matura.dll
+E:\maturujes5\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.exe
+E:\maturujes5\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.deps.json
+E:\maturujes5\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.runtimeconfig.json
+E:\maturujes5\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.dll
+E:\maturujes5\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.pdb
+E:\maturujes5\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.GeneratedMSBuildEditorConfig.editorconfig
+E:\maturujes5\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfoInputs.cache
+E:\maturujes5\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfo.cs
+E:\maturujes5\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.csproj.CoreCompileInputs.cache
+E:\maturujes5\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.dll
+E:\maturujes5\maturita programko 1pc\matura\matura\obj\Debug\net6.0\refint\matura.dll
+E:\maturujes5\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.pdb
+E:\maturujes5\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.genruntimeconfig.cache
+E:\maturujes5\maturita programko 1pc\matura\matura\obj\Debug\net6.0\ref\matura.dll
+E:\maturujes6\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.exe
+E:\maturujes6\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.deps.json
+E:\maturujes6\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.runtimeconfig.json
+E:\maturujes6\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.dll
+E:\maturujes6\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.pdb
+E:\maturujes6\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.GeneratedMSBuildEditorConfig.editorconfig
+E:\maturujes6\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfoInputs.cache
+E:\maturujes6\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfo.cs
+E:\maturujes6\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.csproj.CoreCompileInputs.cache
+E:\maturujes6\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.dll
+E:\maturujes6\maturita programko 1pc\matura\matura\obj\Debug\net6.0\refint\matura.dll
+E:\maturujes6\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.pdb
+E:\maturujes6\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.genruntimeconfig.cache
+E:\maturujes6\maturita programko 1pc\matura\matura\obj\Debug\net6.0\ref\matura.dll
+E:\maturujes7\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.exe
+E:\maturujes7\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.deps.json
+E:\maturujes7\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.runtimeconfig.json
+E:\maturujes7\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.dll
+E:\maturujes7\maturita programko 1pc\matura\matura\bin\Debug\net6.0\matura.pdb
+E:\maturujes7\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.GeneratedMSBuildEditorConfig.editorconfig
+E:\maturujes7\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfoInputs.cache
+E:\maturujes7\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.AssemblyInfo.cs
+E:\maturujes7\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.csproj.CoreCompileInputs.cache
+E:\maturujes7\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.dll
+E:\maturujes7\maturita programko 1pc\matura\matura\obj\Debug\net6.0\refint\matura.dll
+E:\maturujes7\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.pdb
+E:\maturujes7\maturita programko 1pc\matura\matura\obj\Debug\net6.0\matura.genruntimeconfig.cache
+E:\maturujes7\maturita programko 1pc\matura\matura\obj\Debug\net6.0\ref\matura.dll
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\bin\Debug\net6.0\matura.exe
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\bin\Debug\net6.0\matura.deps.json
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\bin\Debug\net6.0\matura.runtimeconfig.json
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\bin\Debug\net6.0\matura.dll
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\bin\Debug\net6.0\matura.pdb
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\matura.GeneratedMSBuildEditorConfig.editorconfig
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\matura.AssemblyInfoInputs.cache
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\matura.AssemblyInfo.cs
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\matura.csproj.CoreCompileInputs.cache
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\matura.sourcelink.json
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\matura.dll
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\refint\matura.dll
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\matura.pdb
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\matura.genruntimeconfig.cache
+E:\maturujes7\maturita programko 1pc\matura\matura 1pc\matura\obj\Debug\net6.0\ref\matura.dll
