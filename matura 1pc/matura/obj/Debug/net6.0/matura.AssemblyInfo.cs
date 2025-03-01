@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("matura")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c453a7747da5858ab6a153d33162000f1abad4f6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+49a979325079124eed1d54a17584d593e124654b")]
 [assembly: System.Reflection.AssemblyProductAttribute("matura")]
 [assembly: System.Reflection.AssemblyTitleAttribute("matura")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

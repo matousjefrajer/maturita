@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\maturujes7\\maturita programko 1pc\\matura\\matura 1pc\\matura\\matura.csproj": {}
+    "D:\\zalohy fleska\\maturujes17\\maturita programko 1pc\\matura\\matura 1pc\\matura\\matura.csproj": {}
   },
   "projects": {
-    "E:\\maturujes7\\maturita programko 1pc\\matura\\matura 1pc\\matura\\matura.csproj": {
+    "D:\\zalohy fleska\\maturujes17\\maturita programko 1pc\\matura\\matura 1pc\\matura\\matura.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\maturujes7\\maturita programko 1pc\\matura\\matura 1pc\\matura\\matura.csproj",
+        "projectUniqueName": "D:\\zalohy fleska\\maturujes17\\maturita programko 1pc\\matura\\matura 1pc\\matura\\matura.csproj",
         "projectName": "matura",
-        "projectPath": "E:\\maturujes7\\maturita programko 1pc\\matura\\matura 1pc\\matura\\matura.csproj",
-        "packagesPath": "C:\\Users\\matous.cerny\\.nuget\\packages\\",
-        "outputPath": "E:\\maturujes7\\maturita programko 1pc\\matura\\matura 1pc\\matura\\obj\\",
+        "projectPath": "D:\\zalohy fleska\\maturujes17\\maturita programko 1pc\\matura\\matura 1pc\\matura\\matura.csproj",
+        "packagesPath": "C:\\Users\\mache\\.nuget\\packages\\",
+        "outputPath": "D:\\zalohy fleska\\maturujes17\\maturita programko 1pc\\matura\\matura 1pc\\matura\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "\\\\gymspit.cz\\data$\\matous.cerny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mache\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -55,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\matura 2pc.csproj",
+      "projectUniqueName": "D:\\zalohy fleska\\maturujes17\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\matura 2pc.csproj",
       "projectName": "matura 2pc",
-      "projectPath": "E:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\matura 2pc.csproj",
+      "projectPath": "D:\\zalohy fleska\\maturujes17\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\matura 2pc.csproj",
       "packagesPath": "C:\\Users\\mache\\.nuget\\packages\\",
-      "outputPath": "E:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\obj\\",
+      "outputPath": "D:\\zalohy fleska\\maturujes17\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mache\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,18 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\",
+  "WorkspaceRootPath": "D:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|d:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|solutionrelative:matura 2pc\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|d:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|solutionrelative:matura 2pc\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|d:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|d:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|solutionrelative:matura 2pc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|d:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|solutionrelative:matura 2pc\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|d:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|solutionrelative:matura 2pc\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|d:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\visuals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02539C46-A06D-4A70-B923-06D2BF067B8E}|matura 2pc\\matura 2pc.csproj|solutionrelative:matura 2pc\\visuals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,25 +30,38 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Game.cs",
-              "DocumentMoniker": "D:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\Game.cs",
-              "RelativeDocumentMoniker": "matura 2pc\\Game.cs",
-              "ToolTip": "D:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\Game.cs",
-              "RelativeToolTip": "matura 2pc\\Game.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAAAAwAAAAbAAAA",
+              "DocumentIndex": 3,
+              "Title": "Visuals.cs",
+              "DocumentMoniker": "D:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\Visuals.cs",
+              "RelativeDocumentMoniker": "matura 2pc\\Visuals.cs",
+              "ToolTip": "D:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\Visuals.cs",
+              "RelativeToolTip": "matura 2pc\\Visuals.cs",
+              "ViewState": "AQIAAF8AAAAAAAAAAAAAADcAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-22T21:26:30.269Z"
+              "WhenOpened": "2025-02-24T15:44:20.83Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Game.cs",
+              "DocumentMoniker": "D:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\Game.cs",
+              "RelativeDocumentMoniker": "matura 2pc\\Game.cs",
+              "ToolTip": "D:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\Game.cs",
+              "RelativeToolTip": "matura 2pc\\Game.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAAAB0AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T21:26:30.269Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Client.cs",
-              "DocumentMoniker": "D:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\Client.cs",
+              "DocumentMoniker": "D:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\Client.cs",
               "RelativeDocumentMoniker": "matura 2pc\\Client.cs",
-              "ToolTip": "D:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\Client.cs",
+              "ToolTip": "D:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\Client.cs",
               "RelativeToolTip": "matura 2pc\\Client.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAAALkAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAowD4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-08T15:11:59.281Z",
               "EditorCaption": ""
@@ -53,11 +70,11 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "D:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\Program.cs",
+              "DocumentMoniker": "D:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\Program.cs",
               "RelativeDocumentMoniker": "matura 2pc\\Program.cs",
-              "ToolTip": "D:\\maturujes7\\matura progrmko 2pc\\matura 2pc\\matura 2pc\\Program.cs",
+              "ToolTip": "D:\\maturujes16\\maturita programko 1pc\\matura\\matura 2pc\\matura 2pc\\Program.cs",
               "RelativeToolTip": "matura 2pc\\Program.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAcAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABoAAABxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-04T19:54:14.239Z",
               "EditorCaption": ""

@@ -8,105 +8,66 @@ namespace matura
 {
     internal class server
     {
-        //static List<Player> playerIPList = new List<Player>();  // Seznam IP adres připojených hráčů https://learn.microsoft.com/cs-cz/dotnet/api/system.collections.generic.list-1?view=net-8.0
         static bool StilSearch = true;
         static int Port = 13000;
         public static void Search()
-        { 
+        {
             string PlayerIP;
+            string PlayerName;
             string returnData;
 
-
-            Console.WriteLine("Searching for other players");
-            Console.WriteLine("press eny key to stop searching");
-
-            
+            Console.WriteLine("Hledání ostatních hráčů");
+            Console.WriteLine("Stiskni \"B\" pro přidání bota, nebo cokoli pro začátek hry");
+            Console.WriteLine("pokud někomu nepřišla zpráva při hře, tak stiskni \"S\", nebo \"R\" pro vyhození hráče");
 
             UdpClient udpClient = new UdpClient(Port); //propojuju se pres ten 13000 https://learn.microsoft.com/cs-cz/dotnet/api/system.net.sockets.udpclient?view=net-8.0
             IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, Port); //povolí mi číst zprávy od ostatních zařízení (musim mít povolený port 13000 jako příchozí
 
             udpClient.Client.ReceiveTimeout = 3000; // přidal jsem timeot, protože by se to zasekávalo při naslouchání na portu
 
-            Thread keyThread = new Thread(CheckForKeyPress); //někdy to ukončit chatgpt poradil
+            Thread keyThread = new Thread(SendMessageAgain); //někdy to ukončit chatgpt poradil
             keyThread.Start();
 
-            
+
             while (StilSearch)
             {
-                Console.WriteLine("kolo");
-                
                 IsThereInternet(); //ověřím připojení
 
                 try
                 {
-                    //IPEndPoint foundPlayer = new IPEndPoint(IPAddress.Any, Port);
                     Byte[] receiveBytes = udpClient.Receive(ref RemoteIpEndPoint); //naslouchá nejdriv v bitech
-                    returnData = Encoding.ASCII.GetString(receiveBytes); //¨přepíšu do slov pro zjednodušení https://learn.microsoft.com/cs-cz/dotnet/framework/network-programming/using-udp-services
-                    //Console.WriteLine(returnData);
-                    if (returnData == "MAUMAUPLAYER") //ověřim, jestli je to hrac
+                    returnData = Encoding.UTF8.GetString(receiveBytes); //¨přepíšu do slov pro zjednodušení https://learn.microsoft.com/cs-cz/dotnet/framework/network-programming/using-udp-services
+                    
+                    if (returnData.Contains("MAUMAUPLAYER")) //ověřim, jestli je to hrac
                     {
-                        PlayerIP = RemoteIpEndPoint.Address.ToString(); //prepisu tu ip do stringu
-                        Console.WriteLine($"there is player at {PlayerIP}");
+                        string[] parts = returnData.Split('.');
+                        PlayerName = parts[1]; //počet karet (za tečkou)
 
-                        
+                        PlayerIP = RemoteIpEndPoint.Address.ToString(); //prepisu tu ip do stringu
+                        Console.WriteLine($"Nalezen hráč s IP: {PlayerIP}");
+
                         string response = "MAUMAUSERVER";
-                        byte[] responseData = Encoding.ASCII.GetBytes(response); // ověř si, kdo to opravdu dostane!!!!!
+                        byte[] responseData = Encoding.UTF8.GetBytes(response); // ověř si, kdo to opravdu dostane!!!!!
                         udpClient.Send(responseData, responseData.Length, RemoteIpEndPoint);
 
-                        PlayerList.AddPlayer(PlayerIP);
+                        PlayerList.AddPlayer(PlayerIP, PlayerName);
 
-
-
-
-                        /*
-                        if (!playerIPList.Contains(PlayerIP))
+                        if(PlayerList.playerIPList.Count > 6)
                         {
-                            playerIPList.Add(PlayerIP);  // přidání do seznamu
-                            int PlayerIndex = playerIPList.Count;  // číslo hráče
-                            Console.WriteLine($"Hráč {PlayerIndex} připojen s IP: {PlayerIP}");
+                            Console.WriteLine($"Byl naplněn možný počet hráčů");
+                            StilSearch = false;
                         }
-                        else
-                        {
-                            int playerNumber = playerIPList.IndexOf(PlayerIP) + 1;
-                            Console.WriteLine($"Hráč {playerNumber} už je připojen.");
-                        }*/
-
                     }
-                    
                 }
                 catch (SocketException e) when (e.SocketErrorCode == SocketError.TimedOut)
                 {
-                    Console.WriteLine("mas moznost na konec");
+                    Console.WriteLine("Stále hledám...");
                 }
-                        
-                
-                //PrintPlayerList();
-                
-                // smaž pak
-                /*
-                Console.WriteLine("koho chces videt");
-                string vstup = Console.ReadLine();
-                int.TryParse(vstup, out int cisloborce);
-                string iphracecochcividet = playerIPList[cisloborce - 1]; // -1, protože indexy v seznamu začínají od 0
-                Console.WriteLine($"IP adresa hráče číslo {cisloborce} je: {iphracecochcividet}");
-                */
-                /*if (Console.KeyAvailable)
-                {
-                    Console.WriteLine("searching done1");
-                    Console.ReadKey(intercept: true); // jakákoli klávesa (jen jí zachytim a nezobrazim)
-                    Console.WriteLine("searching done2");
-                    StilSearch = false; 
-                }*/
             }
-            Console.WriteLine("fakt to skoncilo");
+            Console.WriteLine("Konec hledání");
             udpClient.Close();
         }
-        /*
-        public static void ServerComunication(int PlayerNumber) 
-        {
-            Player player = PlayerList.playerIPList[PlayerNumber];
-            player.PlayersCards.Add(PackofCards.deck[0]);
-        }*/
+        
         public static bool IsThereInternet()
         {
             TcpClient client = new TcpClient(); //https://learn.microsoft.com/cs-cz/dotnet/api/system.net.sockets.tcpclient?view=net-8.0
@@ -118,21 +79,35 @@ namespace matura
             }
             catch (SocketException e)
             {
-                Console.WriteLine($"no internet connection (error message: {e.SocketErrorCode})");
+                Console.WriteLine($"Žádné připojení k internetu (error message: {e.SocketErrorCode})");
                 return false;
             }
         }
-        
-        static void CheckForKeyPress()
+
+        static void SendMessageAgain()
         {
-            while (StilSearch == true)
+            while (StilSearch)
             {
                 if (Console.KeyAvailable)
                 {
-                    Console.ReadKey(true); //zachycení stisknuté klávesy bez jejího zobrazení
-                    Console.WriteLine("neco si zmackl");
-                    StilSearch = false; //ukonci vsehcno
-
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    if (key.Key == ConsoleKey.B)  
+                    {
+                        if (PlayerList.playerIPList.Count > 6)
+                        {
+                            Console.WriteLine($"Byl naplněn možný počet hráčů");
+                            StilSearch = false;
+                        }
+                        else
+                        {
+                            PlayerList.AddBot();
+                        }                        
+                    }
+                    else 
+                    {
+                        Console.WriteLine("\nKonec hledání");
+                        StilSearch = false; //ukonci vsehcno
+                    }
                 }
                 Thread.Sleep(100); // zpoždění, aby se CPU nezatěžovalo (doporucil chatgpt - chci prokonzultovat)
             }
