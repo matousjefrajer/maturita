@@ -26,28 +26,28 @@ while (true)
 
         case ConsoleKey.S:
     
-            GlobalSetting.SaPOnOneDevice = false;
-            Serverpart();
+            GlobalSetting.serverAndPlayerOnOneDevice = false;
+            ServerPart();
             return;
 
          case ConsoleKey.H:
     
-            GlobalSetting.SaPOnOneDevice = false;
-            GlobalSetting.EndOfServer = true;
+            GlobalSetting.serverAndPlayerOnOneDevice = false;
+            GlobalSetting.endOfServer = true;
             PlayerPart();
             return;
 
         case ConsoleKey.O:
     
-            GlobalSetting.SaPOnOneDevice = true;
-            Task serverTask = Task.Run(Serverpart);
+            GlobalSetting.serverAndPlayerOnOneDevice = true;
+            Task serverTask = Task.Run(ServerPart);
             Task playerTask = Task.Run(PlayerPart);
             Task.WaitAll(serverTask, playerTask);
             return;
 
         case ConsoleKey.Z:
     
-            GlobalSetting.SaPOnOneDevice = false;
+            GlobalSetting.serverAndPlayerOnOneDevice = false;
             Reconnect();
             return;
 
@@ -92,7 +92,7 @@ void Welcome()
     Console.WriteLine("╚═════════════════════════════════════════════════════════════════════════════════╝");
     Console.ResetColor(); //chatGPT mi řekl, že existujou ty znaky na ohraničení
 }
-void Serverpart()
+void ServerPart()
 {
     PackofCards pack = new PackofCards(); //vytvoření herního balíčku + míchání
     
@@ -106,21 +106,21 @@ void Serverpart()
     Console.Clear();
     Console.WriteLine("Můžeš pozorovat hru.");
 
-    if (GlobalSetting.SaPOnOneDevice == true) Player_Visuals.ServerPlayer = "stisknutí: \"V\" = můžeš někoho vyhodit, \"O\" = opuštění hry, \"K\" = konec hry";
+    if (GlobalSetting.serverAndPlayerOnOneDevice == true) Player_Visuals.serverPlayer = "stisknutí: \"V\" = můžeš někoho vyhodit, \"O\" = opuštění hry, \"K\" = konec hry";
 
-    while (Server_Game.MoreThenOnePlayer)
+    while (Server_Game.moreThenOnePlayer)
     {
-        Server_Game.game();
+        Server_Game.Game();
     }
     Console.WriteLine($"Konec hry");
 }
 void PlayerPart()
 {
-    if (GlobalSetting.SaPOnOneDevice == true)
+    if (GlobalSetting.serverAndPlayerOnOneDevice == true)
     {
         Console.Clear();
         Console.WriteLine("Server již běží a hledá hráče. Zadej svoji přezdívku a také se připoj");
-        Player_Visuals.ServerPlayer = "stisknutí: \"B\" = přidání bota, \"K\" = ukončení hledání hráčů a začátek hry, \"V\" = vyhození hráče";
+        Player_Visuals.serverPlayer = "stisknutí: \"B\" = přidání bota, \"K\" = ukončení hledání hráčů a začátek hry, \"V\" = vyhození hráče";
     }
     
     Console.WriteLine("Pokud se chceš vrátit, zadej \"Z\"");
@@ -138,7 +138,7 @@ void Reconnect()
 
     UdpClient udpClient = new UdpClient();
 
-    IPEndPoint IPEndPoint = new IPEndPoint(IPAddress.Broadcast, GlobalSetting.ReturnPort);
+    IPEndPoint IPEndPoint = new IPEndPoint(IPAddress.Broadcast, GlobalSetting.returnPort);
 
     udpClient.Client.ReceiveTimeout = 3000;
     bool StillSend = true;
@@ -148,20 +148,20 @@ void Reconnect()
         {
             Console.WriteLine("Hledání serveru...");
 
-            string Message = $"LOOKINGFORSERVER.{Player_Client.Nick}";
+            string Message = $"LOOKINGFORSERVER.{Player_Client.nick}";
             byte[] MessegeData = Encoding.UTF8.GetBytes(Message);
             udpClient.Send(MessegeData, MessegeData.Length, IPEndPoint);
 
-            Player_Client.ClientPort = (udpClient.Client.LocalEndPoint as IPEndPoint)?.Port ?? 0;
+            Player_Client.clientPort = (udpClient.Client.LocalEndPoint as IPEndPoint)?.Port ?? 0;
 
-            Player_Client.ServerEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            byte[] serverResponse = udpClient.Receive(ref Player_Client.ServerEndPoint);
+            Player_Client.serverEndPoint = new IPEndPoint(IPAddress.Any, 0);
+            byte[] serverResponse = udpClient.Receive(ref Player_Client.serverEndPoint);
             string responseMessage = Encoding.UTF8.GetString(serverResponse);
 
             switch (responseMessage)
             {
                 case "MAUMAUSERVER":
-                    Console.WriteLine($"Server found at IP: {Player_Client.ServerEndPoint}");
+                    Console.WriteLine($"Server found at IP: {Player_Client.serverEndPoint}");
                     StillSend = false;
                     break;
                 case "WRONGNAME":
@@ -238,8 +238,8 @@ void ChangeGameID()
 
         if (int.TryParse(input, out id) && id >= 0)
         {
-            GlobalSetting.ServerPort = 13000 + id * 2;
-            GlobalSetting.ReturnPort = 13001 + id * 2;
+            GlobalSetting.serverPort = 13000 + id * 2;
+            GlobalSetting.returnPort = 13001 + id * 2;
             Console.WriteLine("ID bylo změněno.");
             break; 
         }

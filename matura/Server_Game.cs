@@ -6,30 +6,30 @@ namespace matura
 {
     internal class Server_Game
     {
-        public static int SevenCount = 0;
-        public static bool AceFactor = false;
-        public static bool QueenFactor = false;
+        public static int sevenCount = 0;
+        public static bool aceFactor = false;
+        public static bool queenFactor = false;
 
-        public static string Color = "";
-        private static string AceMessage = "";
-        private static string SevenMessage = "";
+        public static string selectedColor = "";
+        private static string aceMessage = "";
+        private static string sevenMessage = "";
 
-        public static bool MoreThenOnePlayer = true;
-        public static string GameInfo = "";
+        public static bool moreThenOnePlayer = true;
+        public static string gameInfo = "";
         private static Card playedCard = null!;
-        public static bool ChangedBotColor = false;
-        private static string ColorInfo = "";
-        private static Player? PlayerOnTurn;
-        private static string MessageToWinner = "VYHRÁL jsi";
-        private static string messagetoall = "VYHRÁL";
-        private static string Message = "";
+        public static bool botChangedColor = false;
+        private static string colorInfo = "";
+        private static Player? playerOnTurn;
+        private static string messageToWinner = "VYHRÁL jsi";
+        private static string messageToAll = "VYHRÁL";
+        private static string message = "";
 
-        private static List<Player> WinnerList = new List<Player>();
-        private static List<Player> ToKickList = new List<Player>();
+        private static List<Player> winnerList = new List<Player>();
+        private static List<Player> toKickList = new List<Player>();
         
-        public static void game()
+        public static void Game()
         {   
-            if (GlobalSetting.SaPOnOneDevice == false)
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false)
             {
                 Console.WriteLine("\nNové kolo\n");
             }
@@ -37,9 +37,9 @@ namespace matura
             Thread ReconnectThread = new Thread(ReturnToGame);
             ReconnectThread.Start();
 
-            if (GlobalSetting.SaPOnOneDevice == false)
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false)
             {
-                Thread keyThread = new Thread(Keypress); 
+                Thread keyThread = new Thread(KeyPress); 
                 keyThread.Start();
             }
             
@@ -51,36 +51,36 @@ namespace matura
         }
         private static void CallingPlayerOnTurn(Player player)
         {
-             PlayerOnTurn = player;
+             playerOnTurn = player;
             
-            if (ToKickList.Contains(player)) //pokud byl odebrán již v průběhu kola, tak se přeskočí
+            if (toKickList.Contains(player)) //pokud byl odebrán již v průběhu kola, tak se přeskočí
             {
                 return;
             }
 
             Card lastcard = PackofCards.discardpile.Last();            
 
-            string WhoIsOnTurn = $"{player.PlayerName}.onturn";
+            string WhoIsOnTurn = $"{player.playerName}.onturn";
             SendToAll(WhoIsOnTurn);
 
-            int cardCount = player.PlayersCards.Count;
+            int cardCount = player.playersCards.Count;
 
-            string handCards = string.Join("\n     ", player.PlayersCards.Select((card, index) => $"{index + 1}: {card}")); //chatGPT mi řekl, jak použít string.join
-            ColorInfo = "";
+            string handCards = string.Join("\n     ", player.playersCards.Select((card, index) => $"{index + 1}: {card}")); //chatGPT mi řekl, jak použít string.join
+            colorInfo = "";
 
             string lastCardString = lastcard.ToString();
-            if (!string.IsNullOrEmpty(Color))
+            if (!string.IsNullOrEmpty(selectedColor))
             {
-                ColorInfo = $" -> barva je: {Color}";
+                colorInfo = $" -> barva je: {selectedColor}";
             }
 
-            Message = $"Na vrchu balíčku: {lastCardString}{ColorInfo}{AceMessage}{SevenMessage}|" +
+            message = $"Na vrchu balíčku: {lastCardString}{colorInfo}{aceMessage}{sevenMessage}|" +
                 $"\n     Karty v ruce:" +
                 $"\n     {handCards}" +
                 $".{cardCount}";
 
-            FirstInfo(lastcard, ColorInfo); //aby se hráčům vyplňila tabulka
-            SendMessage(Message, player);
+            FirstInfo(lastcard, colorInfo); //aby se hráčům vyplňila tabulka
+            SendMessage(message, player);
 
             GettingResponse(player, lastcard);
         }
@@ -90,7 +90,7 @@ namespace matura
             
             do
             {
-                if (GlobalSetting.SaPOnOneDevice == false)
+                if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                 {
                     Console.WriteLine("Čekám na odpověď...");
                 }
@@ -110,13 +110,13 @@ namespace matura
                     return;
                 }
 
-                bool NewTry = CheckGameLogick(lastcard, player, response); 
-
-                if (QueenFactor == true && player.IPEndPoint != null)
+                bool NewTry = CheckGameLogic(lastcard, player, response); 
+             
+                if (queenFactor == true && player.IPEndPoint != null)
                 {
                     QueenEffect(player);
                 }
-                else QueenFactor = false;
+                else queenFactor = false;
                 
                 if (NewTry == true)
                 {
@@ -125,7 +125,8 @@ namespace matura
                 }
                 else 
                 {
-                    SendGameInfo(player, GameInfo);
+                    colorInfo = "";
+                    SendGameInfo(player, gameInfo);
                     Win(player);
                     break;
                 }
@@ -141,26 +142,26 @@ namespace matura
         {
             int NumberOfCards = 1;
 
-            if (SevenCount > 0)
+            if (sevenCount > 0)
             {
-                NumberOfCards = SevenCount * 2;
-                SevenMessage = " -> na tebe neplatí";
-                SevenCount = 0;
+                NumberOfCards = sevenCount * 2;
+                sevenMessage = " -> na tebe neplatí";
+                sevenCount = 0;
             }
 
-            if (AceFactor == true)
+            if (aceFactor == true)
             {
-                GameInfo = "stál";
-                AceMessage = " -> někdo jiný už stál";
-                AceFactor = false;
+                gameInfo = "stál";
+                aceMessage = " -> někdo jiný už stál";
+                aceFactor = false;
             }
             else
             {
-                GameInfo = $"si {NumberOfCards} krát lízl ";
+                gameInfo = $"si {NumberOfCards} krát lízl ";
                 PackofCards.DrawCard(player, NumberOfCards);
             }           
 
-            SendGameInfo(player, GameInfo);
+            SendGameInfo(player, gameInfo);
         }
         private static void QueenEffect(Player player)
         {
@@ -181,27 +182,30 @@ namespace matura
                 Random rnd = new Random();
                 responseColor = rnd.Next(1, 5);
             }
-            Color = GetCardColor(responseColor);
+            selectedColor = GetCardColor(responseColor);
             
-            GameInfo = $"zahrál svrška a změnil na {Color}";
+            gameInfo = $"zahrál svrška a změnil na {selectedColor}";
 
-            QueenFactor = false;
+            queenFactor = false;
         }
-        private static bool CheckGameLogick(Card CardonDeck, Player player, int CardonHandIndex)
+        private static bool CheckGameLogic(Card CardonDeck, Player player, int CardonHandIndex)
         {
             CardonHandIndex--;
-            playedCard = player.PlayersCards[CardonHandIndex];
-            GameInfo = $"zahrál {playedCard}"; 
+            playedCard = player.playersCards[CardonHandIndex];
+            if (botChangedColor == false)
+            {
+                gameInfo = $"zahrál {playedCard}";
+            }
 
             //na vrchu 7 
 
-            if (CardonDeck.CardValue == "7" && SevenCount > 0)  //první sedma neplatí
+            if (CardonDeck.cardValue == "7" && sevenCount > 0)  //první sedma neplatí
             {
-                AceMessage = "";
-                if (playedCard.CardValue == "7")
+                aceMessage = "";
+                if (playedCard.cardValue == "7")
                 {
-                    SevenCount++;
-                    SevenMessage = $" -> musíš zahrát 7, nebo si líznout {2 * SevenCount}";
+                    sevenCount++;
+                    sevenMessage = $" -> musíš zahrát 7, nebo si líznout {2 * sevenCount}";
                     PackofCards.PlayCard(CardonHandIndex, player);
 
                     return false;
@@ -214,10 +218,10 @@ namespace matura
 
             // na vrchu eso
 
-            else if (CardonDeck.CardValue == "Eso" && AceFactor == true) //první eso neplatí
+            else if (CardonDeck.cardValue == "Eso" && aceFactor == true) //první eso neplatí
             {
-                SevenMessage = "";
-                if (playedCard.CardValue == "Eso")
+                sevenMessage = "";
+                if (playedCard.cardValue == "Eso")
                 {
                     PackofCards.PlayCard(CardonHandIndex, player);
 
@@ -233,17 +237,17 @@ namespace matura
 
             else
             {
-                AceMessage = ""; 
-                SevenMessage = "";
+                aceMessage = ""; 
+                sevenMessage = "";
 
-                if (!string.IsNullOrEmpty(Color) && ChangedBotColor == false)  //když se hraje na svrška, tak se nesmí jeho barva, ale jenom ta zvolenou
+                if (!string.IsNullOrEmpty(selectedColor) && botChangedColor == false)  //když se hraje na svrška, tak se nesmí jeho barva, ale jenom ta zvolenou
                 {
-                    if (playedCard.CardColor == Color || playedCard.CardValue == "svršek") //na svrška se smí dát svršek
+                    if (playedCard.cardColor == selectedColor || playedCard.cardValue == "svršek") //na svrška se smí dát svršek
                     {
                         PackofCards.PlayCard(CardonHandIndex, player);
                         PlayedCardProperty();
-                        Color = "";
-
+                        selectedColor = "";
+                        
                         return false;
                     }
                     else
@@ -251,9 +255,9 @@ namespace matura
                         return true;
                     }
                 }
-                else if (ChangedBotColor == true) //pokud je na tahu bot, tak si uz vybral barvu a tady se to přeskočí
+                else if (botChangedColor == true) //pokud je na tahu bot, tak si uz vybral barvu a tady se to přeskočí
                 {
-                    ChangedBotColor = false;
+                    botChangedColor = false;
 
                     PackofCards.PlayCard(CardonHandIndex, player);
                     PlayedCardProperty();
@@ -261,7 +265,7 @@ namespace matura
                 }
                 else //pokud nebyl svršek
                 {
-                    if (playedCard.CardColor == CardonDeck.CardColor || playedCard.CardValue == CardonDeck.CardValue || playedCard.CardValue == "svršek")
+                    if (playedCard.cardColor == CardonDeck.cardColor || playedCard.cardValue == CardonDeck.cardValue || playedCard.cardValue == "svršek")
                     {
                         PackofCards.PlayCard(CardonHandIndex, player);
                         PlayedCardProperty();
@@ -277,26 +281,26 @@ namespace matura
         }
         private static void PlayedCardProperty()
         {
-            if (playedCard.CardValue == "7") //sedmička při rozdání se nepočítá
+            if (playedCard.cardValue == "7") //sedmička při rozdání se nepočítá
             {
-                SevenCount++;
-                SevenMessage = $" -> musíš zahrát 7, nebo si líznout {2 * SevenCount}";
+                sevenCount++;
+                sevenMessage = $" -> musíš zahrát 7, nebo si líznout {2 * sevenCount}";
             }
-            else { SevenCount = 0; }
-            if (playedCard.CardValue == "Eso") //eso při rozdání se nepočítá
+            else { sevenCount = 0; }
+            if (playedCard.cardValue == "Eso") //eso při rozdání se nepočítá
             {
-                AceFactor = true;
-                AceMessage = " -> musíš stát (stiskni 0), nebo zahrát eso";
+                aceFactor = true;
+                aceMessage = " -> musíš stát (stiskni 0), nebo zahrát eso";
             }
-            else { AceFactor = false; } 
-            if (playedCard.CardValue == "svršek") //svršek při rozdání se nepočítá
+            else { aceFactor = false; } 
+            if (playedCard.cardValue == "svršek") //svršek při rozdání se nepočítá
             {
-                QueenFactor = true;
+                queenFactor = true;
             }
            
-            if (GlobalSetting.SaPOnOneDevice == false)
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false)
             {
-                Console.WriteLine($"je změněno na {Color}, svršek je {playedCard.CardColor}");
+                Console.WriteLine($"je změněno na {selectedColor}, svršek je {playedCard.cardColor}");
             }
         }
         private static string GetCardColor(int number)
@@ -312,21 +316,21 @@ namespace matura
         }
         private static void Win(Player player)
         {
-            if (player.PlayersCards.Count == 0)
+            if (player.playersCards.Count == 0)
             {
-                if (GlobalSetting.SaPOnOneDevice == false)
+                if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                 {
-                    Console.WriteLine($"{player.PlayerName} Dohrál");
+                    Console.WriteLine($"{player.playerName} Dohrál");
                 }
 
-                WinnerList.Add(player);
+                winnerList.Add(player);
 
-                SendMessage(MessageToWinner, player);
-                MessageToWinner = "DOHRÁL jsi";
+                SendMessage(messageToWinner, player);
+                messageToWinner = "DOHRÁL jsi";
 
-                string messagetosend = $"{player.PlayerName} {messagetoall}";
+                string messagetosend = $"{player.playerName} {messageToAll}";
                 SendToAll(messagetosend);
-                messagetoall = "DOHRÁL";
+                messageToAll = "DOHRÁL";
             }
         }
         private static void SendMessage(string Message, Player player)
@@ -341,14 +345,14 @@ namespace matura
 
                 byte[] sendData = Encoding.UTF8.GetBytes(Message);
                 Server_Server.udpClient.Send(sendData, sendData.Length, player.IPEndPoint);
-                if (GlobalSetting.SaPOnOneDevice == false)
+                if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                 {
                     Console.WriteLine($"Odesílám: {Message}");
                 }
             }
             catch (Exception ex)
             {
-                if (GlobalSetting.SaPOnOneDevice == false)
+                if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                 {
                     Console.WriteLine($"Chyba: {ex.Message}");
                 }
@@ -362,12 +366,12 @@ namespace matura
             {
                 try
                 {
-                    if (player.IPEndPoint == null || ToKickList.Contains(player))
+                    if (player.IPEndPoint == null || toKickList.Contains(player))
                     {
                         return -1;
                     }
 
-                    IPEndPoint responseEndPoint = new IPEndPoint(player.IPEndPoint.Address, GlobalSetting.ServerPort);
+                    IPEndPoint responseEndPoint = new IPEndPoint(player.IPEndPoint.Address, GlobalSetting.serverPort);
 
                     byte[] receivedData = Server_Server.udpClient.Receive(ref responseEndPoint);
                     response = int.Parse(Encoding.UTF8.GetString(receivedData));
@@ -380,7 +384,7 @@ namespace matura
                 }
                 catch (Exception ex)
                 {
-                    if (GlobalSetting.SaPOnOneDevice == false)
+                    if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                     {
                         Console.WriteLine($"Chyba z receive: {ex.Message}");
                     }
@@ -393,12 +397,12 @@ namespace matura
             string OthersCards = ""; 
             foreach (var player in PlayerList.playerIPList)
             {
-                int cardCount = player.PlayersCards.Count;
-                OthersCards += $"\n{player.PlayerName},{cardCount}";
+                int cardCount = player.playersCards.Count;
+                OthersCards += $"\n{player.playerName},{cardCount}";
             }
             OthersCards += "\n";
-
-            string GameInfoToSend = $"{PlayerOnTurn.PlayerName} -> {GameInfo}{ColorInfo}.{OthersCards}.informace";
+            
+            string GameInfoToSend = $"{PlayerOnTurn.playerName} -> {GameInfo}{colorInfo}.{OthersCards}.informace";
             SendToAll(GameInfoToSend);
         }
         public static void SendToAll(string MessageToAll)
@@ -407,7 +411,7 @@ namespace matura
             {
                 SendMessage(MessageToAll, player);
             }
-            foreach (var player in WinnerList)
+            foreach (var player in winnerList)
             {
                 SendMessage(MessageToAll, player);
             }
@@ -416,7 +420,7 @@ namespace matura
         {
             foreach (var player in PlayerList.playerIPList.ToList())
             {
-                if (WinnerList.Contains(player) || ToKickList.Contains(player))
+                if (winnerList.Contains(player) || toKickList.Contains(player))
                 {
                     PlayerList.playerIPList.Remove(player);
                 }
@@ -425,13 +429,13 @@ namespace matura
             {
                 if (PlayerList.playerIPList.Count == 1)
                 {
-                    WinnerList.Add(PlayerList.playerIPList[0]);
+                    winnerList.Add(PlayerList.playerIPList[0]);
                 }
 
                 SendScoreboard();
 
-                MoreThenOnePlayer = false;
-                if (GlobalSetting.SaPOnOneDevice == false) GlobalSetting.RestartGame();
+                moreThenOnePlayer = false;
+                if (GlobalSetting.serverAndPlayerOnOneDevice == false) GlobalSetting.RestartGame();
             }
         }
         private static void SendScoreboard()
@@ -439,21 +443,21 @@ namespace matura
             int number = 1;
             string MessageToAll = "Scoreboard:";
                         
-            var sortedWinners = WinnerList.OrderBy(p => p.PlayersCards.Count).ToList(); //seřadí se podle počtu karet, ti co vyhráli, mají nula a napíšou se tak, jak tam jsou
+            var sortedWinners = winnerList.OrderBy(p => p.playersCards.Count).ToList(); //seřadí se podle počtu karet, ti co vyhráli, mají nula a napíšou se tak, jak tam jsou
 
             for (int i = 0; i < sortedWinners.Count; i++)
             {
-                if (i > 0 && sortedWinners[i].PlayersCards.Count != sortedWinners[i - 1].PlayersCards.Count && sortedWinners[i].PlayersCards.Count != 0 || i > 0 && sortedWinners[i].PlayersCards.Count == 0) //hráči s jiným počtem karet jdou na další pozici
+                if (i > 0 && sortedWinners[i].playersCards.Count != sortedWinners[i - 1].playersCards.Count && sortedWinners[i].playersCards.Count != 0 || i > 0 && sortedWinners[i].playersCards.Count == 0) //hráči s jiným počtem karet jdou na další pozici
                 {
                     number++ ; 
                 }
 
-                Console.WriteLine($"{number}. {sortedWinners[i].PlayerName}");
+                Console.WriteLine($"{number}. {sortedWinners[i].playerName}");
                 
-                MessageToAll += $"\n{number}. {sortedWinners[i].PlayerName}";
+                MessageToAll += $"\n{number}. {sortedWinners[i].playerName}";
             }
 
-            foreach (var PlayerWinner in WinnerList)
+            foreach (var PlayerWinner in winnerList)
             {
                 SendMessage(MessageToAll, PlayerWinner);
             }
@@ -463,12 +467,12 @@ namespace matura
             string OthersCards = "";
             foreach (var player in PlayerList.playerIPList)
             {
-                int cardCount = player.PlayersCards.Count;
-                OthersCards += $"\n{player.PlayerName},{cardCount}"; 
+                int cardCount = player.playersCards.Count;
+                OthersCards += $"\n{player.playerName},{cardCount}"; 
             }
             foreach (var player in PlayerList.playerIPList)
             {
-                string handCards = string.Join("\n     ", player.PlayersCards.Select((card, index) => $"{index + 1}: {card}")); 
+                string handCards = string.Join("\n     ", player.playersCards.Select((card, index) => $"{index + 1}: {card}")); 
 
                 string message = $"Na vrchu balíčku: {lastcard}{ColorInfo}," +
                     $"\n     Karty v ruce:" +
@@ -483,20 +487,20 @@ namespace matura
                 try
                 {
                     IPEndPoint IpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-                    Byte[] receiveBytes = Server_Server.ReturnudpClient.Receive(ref IpEndPoint); 
+                    Byte[] receiveBytes = Server_Server.returnUdpClient.Receive(ref IpEndPoint); 
 
                     string returnData = Encoding.UTF8.GetString(receiveBytes); 
 
                     string[] parts = returnData.Split('.');
                     string PlayerName = parts[1];
                     
-                    if (returnData.Contains("LOOKINGFORSERVER") && PlayerList.playerIPList.Any(player => player.PlayerName == PlayerName && player.IPEndPoint != null && player.IPEndPoint.Address.Equals(IpEndPoint.Address))) //je tam ta kontrola stejné ip, aby se nikdo nepřihlásil za někoho jiného
+                    if (returnData.Contains("LOOKINGFORSERVER") && PlayerList.playerIPList.Any(player => player.playerName == PlayerName && player.IPEndPoint != null && player.IPEndPoint.Address.Equals(IpEndPoint.Address))) //je tam ta kontrola stejné ip, aby se nikdo nepřihlásil za někoho jiného
                     {
-                        if (GlobalSetting.SaPOnOneDevice == false)
+                        if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                         {
                             Console.WriteLine($"Znovu nalezen hráč: {IpEndPoint}");
                         }
-                        var player = PlayerList.playerIPList.FirstOrDefault(p => p.PlayerName == PlayerName && p.IPEndPoint?.Address.Equals(IpEndPoint.Address) == true); //to rovna se true je: pokud IPEndPoint neni null, tak to jde dál
+                        var player = PlayerList.playerIPList.FirstOrDefault(p => p.playerName == PlayerName && p.IPEndPoint?.Address.Equals(IpEndPoint.Address) == true); //to rovna se true je: pokud IPEndPoint neni null, tak to jde dál
                         if (player != null && player.IPEndPoint != null)  
                         {
                             player.IPEndPoint.Port = IpEndPoint.Port;
@@ -505,28 +509,28 @@ namespace matura
                             string response = "MAUMAUSERVER";
                             SendMessage(response, player);
                         }
-                        if (PlayerOnTurn == player && player != null)
+                        if (playerOnTurn == player && player != null)
                         {
                             Thread.Sleep(200);
-                            SendMessage(Message, player);
+                            SendMessage(message, player);
                         }
                     }
                     else if (returnData.Contains("KICKME"))
                     {
-                        var playertokick = PlayerList.playerIPList.FirstOrDefault(p => p.PlayerName == PlayerName);
+                        var playertokick = PlayerList.playerIPList.FirstOrDefault(p => p.playerName == PlayerName);
                         if (playertokick != null)
                         {
-                            if (playertokick.PlayersCards.Count > 0)
+                            if (playertokick.playersCards.Count > 0)
                             {
-                                PackofCards.deck.AddRange(playertokick.PlayersCards); // vrátí se jeho karty
+                                PackofCards.deck.AddRange(playertokick.playersCards); // vrátí se jeho karty
                             }
 
-                            ToKickList.Add(playertokick); //mažou se až na konci kola
+                            toKickList.Add(playertokick); //mažou se až na konci kola
 
                             string response = "YOUWEREKICKED";
                             byte[] responseData = Encoding.UTF8.GetBytes(response);
-                            Server_Server.ReturnudpClient.Send(responseData, responseData.Length, IpEndPoint);
-                            Console.WriteLine($"{playertokick.PlayerName} opustil hru");
+                            Server_Server.returnUdpClient.Send(responseData, responseData.Length, IpEndPoint);
+                            Console.WriteLine($"{playertokick.playerName} opustil hru");
 
                             string info = "Opustil hru";
                             SendGameInfo(playertokick, info);
@@ -536,7 +540,7 @@ namespace matura
                     {
                         string response = "WRONGNAME";
                         byte[] responseData = Encoding.UTF8.GetBytes(response);
-                        Server_Server.ReturnudpClient.Send(responseData, responseData.Length, IpEndPoint);
+                        Server_Server.returnUdpClient.Send(responseData, responseData.Length, IpEndPoint);
                     }
                 }
                 catch (SocketException e) when (e.SocketErrorCode == SocketError.TimedOut)
@@ -545,7 +549,7 @@ namespace matura
                 }
                 catch (Exception ex)
                 {
-                    if (GlobalSetting.SaPOnOneDevice == false)
+                    if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                     {
                         Console.WriteLine($"Chyba z vlákna: {ex.Message}");
                     }
@@ -556,7 +560,7 @@ namespace matura
         {
             foreach (var p in PlayerList.playerIPList)
             {
-                Console.WriteLine($"- {p.PlayerName}");
+                Console.WriteLine($"- {p.playerName}");
             }
             
             Console.WriteLine("Zadej jméno hráče, kterého chceš vyhodit, nebo \"nikdo\":");
@@ -578,7 +582,7 @@ namespace matura
                 
                 else
                 {
-                    Player? playerToKick = PlayerList.playerIPList.FirstOrDefault(p => p.PlayerName == playertokick);
+                    Player? playerToKick = PlayerList.playerIPList.FirstOrDefault(p => p.playerName == playertokick);
 
                     if (playerToKick == null)
                     {
@@ -586,15 +590,15 @@ namespace matura
                     }
                     else
                     {
-                        Console.WriteLine("Jsi si opravdu jsit?, pokud ano stiskni Enter");
+                        Console.WriteLine("Jsi si opravdu jistý? Pokud ano, stiskni Enter.");
                         if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                         {
-                            if (playerToKick.PlayersCards.Count > 0)
+                            if (playerToKick.playersCards.Count > 0)
                             {
-                                PackofCards.deck.AddRange(playerToKick.PlayersCards); // vrátí se jeho karty
+                                PackofCards.deck.AddRange(playerToKick.playersCards); // vrátí se jeho karty
                             }
                                                         
-                            ToKickList.Add(playerToKick); //mažou se až na konci kola
+                            toKickList.Add(playerToKick); //mažou se až na konci kola
 
                             string info = "Byl vyhozen ze hry";
                             SendGameInfo(playerToKick, info);
@@ -606,9 +610,9 @@ namespace matura
                 }
 
             } while (done == false);
-            Console.WriteLine($"potom");
+            Console.WriteLine($"Hráč byl vyhozen."); //tady jsi měl cyhbu (potom)
         }
-        private static void Keypress()
+        private static void KeyPress()
         {
             while (true)
             {
@@ -621,7 +625,7 @@ namespace matura
                     }
                     if (key.Key == ConsoleKey.K)
                     {
-                        Console.WriteLine("Jsi si opravdu jsit?, pokud ano stiskni Enter");
+                        Console.WriteLine("Jsi si opravdu jistý? Pokud ano, stiskni Enter.");
                         if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                         {
                             EndGame(); 
@@ -633,9 +637,9 @@ namespace matura
         public static void EndGame()
         {
             var sortedPlayers = PlayerList.playerIPList
-            .OrderBy(player => player.PlayersCards.Count)
+            .OrderBy(player => player.playersCards.Count)
             .ToList();
-            WinnerList.AddRange(sortedPlayers);
+            winnerList.AddRange(sortedPlayers);
 
             SendScoreboard();
 

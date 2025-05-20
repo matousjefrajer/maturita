@@ -5,11 +5,11 @@ namespace matura
     internal class PlayerList
     {
         public static List<Player> playerIPList = new List<Player>(); 
-        private static int BotsNumber = 1;
+        private static int botsNumber = 1;
         
         public static void AddPlayer(IPEndPoint PlayerIPEndPoint, string PlayerName) 
         {
-            if (!playerIPList.Any(player => player.PlayerName == PlayerName)) 
+            if (!playerIPList.Any(player => player.playerName == PlayerName)) 
             {
                 List<Card> PlayersCards = new List<Card>(); 
                 
@@ -21,7 +21,7 @@ namespace matura
 
                 Console.SetCursorPosition(0, Console.WindowTop + Console.WindowHeight - 1); // chatGPT 
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"Přidal se: hráč se jménem: {newPlayer.PlayerName}".PadRight(Console.WindowWidth));
+                Console.WriteLine($"Přidal se: hráč se jménem: {newPlayer.playerName}".PadRight(Console.WindowWidth));
                 Console.ResetColor();
                 Console.SetCursorPosition(cursorLeft, cursorTop); // chatGPT 
                 
@@ -32,28 +32,28 @@ namespace matura
             }
             else
             {
-                Server_Server.TakenName = true;
+                Server_Server.takenName = true;
             }
         }
         public static void AddBot()
         {
             List<Card> BotsCards = new List<Card>();
 
-            string BotsName = $"Bot {BotsNumber}";
+            string BotsName = $"Bot {botsNumber}";
             Bot newBot = new Bot(BotsCards, BotsName); 
 
             playerIPList.Add(newBot); 
 
-            if (GlobalSetting.SaPOnOneDevice == false)
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false)
             {
-                Console.WriteLine($"\nPřidal se bot: {newBot.PlayerName}");
+                Console.WriteLine($"\nPřidal se bot: {newBot.playerName}");
             }
 
             string Message = $"připojil se do hry";
                         
             Server_Game.SendGameInfo(newBot, Message);
 
-            BotsNumber++;
+            botsNumber++;
         }
         public static void PrintPlayerList()
         {
@@ -61,8 +61,8 @@ namespace matura
             foreach (var player in playerIPList)
             {
                 Console.WriteLine("");
-                Console.WriteLine($"IP adresa: {player.IPEndPoint} se jménem {player.PlayerName}, má karty:");//{player.PlayerNumber}
-                foreach (var card in player.PlayersCards)
+                Console.WriteLine($"IP adresa: {player.IPEndPoint} se jménem {player.playerName}, má karty:");//{player.PlayerNumber}
+                foreach (var card in player.playersCards)
                 {
                     Console.Write("{0} ", card);
                 }

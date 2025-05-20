@@ -6,34 +6,38 @@ namespace matura
 {
     internal class Player_Game
     {
-        private static bool endofgame = true;
-        private static bool SkipInput;
+        private static bool endOfGame = true;
+        private static bool skipInput;
         private static string receivedMessage = "";
-        private static int CardCount = 0;
-        private static bool ScoreBoard = false;
+        private static int cardCount = 0;
+        private static bool scoreBoard = false;
         private static readonly object lockObj = new object();
-        private static UdpClient MainUdpClient= new UdpClient(Player_Client.ClientPort);
+        private static UdpClient mainUdpClient= new UdpClient(Player_Client.clientPort);
         
         public static void Comunication()
         {
             Thread keyThread = new Thread(Keypress);
             keyThread.Start();
 
-            if (GlobalSetting.SaPOnOneDevice == false) Player_Visuals.ServerPlayer = "Pokud chceš opustit hru, tak stiskni \"O\".";
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false) Player_Visuals.serverPlayer = "Pokud chceš opustit hru, tak stiskni \"O\".";
             
-            while (endofgame)
+            while (endOfGame)
             {
-                SkipInput = false;
+                skipInput = false;
 
                 try
                 {
-                    IPEndPoint EndPoint = new IPEndPoint(Player_Client.ServerEndPoint.Address, Player_Client.ClientPort);
-                    receivedMessage = ReceiveMessage(MainUdpClient, EndPoint);
+                    IPEndPoint EndPoint = new IPEndPoint(Player_Client.serverEndPoint.Address, Player_Client.clientPort);
+                    receivedMessage = ReceiveMessage(mainUdpClient, EndPoint);
                     DecryptionOfTheMessage();
 
-                    if (ScoreBoard == true) break;
+                    if (scoreBoard == true) //tady jsi měl chybu - chyběl ten restart
+                    { 
+                        GlobalSetting.RestartGame(); 
+                        break;
+                    }
 
-                    if (SkipInput == false)
+                    if (skipInput == false)
                     {
                         PlayerInput();
                     }
@@ -44,7 +48,7 @@ namespace matura
                         $"\n Chybová zpráva: {ex.Message}");
                 }
             }
-            if (GlobalSetting.SaPOnOneDevice == false) GlobalSetting.RestartGame(); //pokud je to na jedom zařízení, tak chci nechat server běžet
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false) GlobalSetting.RestartGame(); //pokud je to na jedom zařízení, tak chci nechat server běžet
         }
         private static void DecryptionOfTheMessage()
         {
@@ -57,16 +61,16 @@ namespace matura
                 case string msg when msg.Contains("Scoreboard"):
                     Console.Clear();
                     Console.WriteLine($"{receivedMessage}");
-                    endofgame = false;
-                    ScoreBoard = true;
+                    endOfGame = false;
+                    scoreBoard = true;
                     break;
 
                 case string msg when msg.Contains("DOHRÁL jsi"):
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"{receivedMessage}"); ;
-                    Player_Visuals.ServerPlayer = "DOHRÁL JSI - " + Player_Visuals.ServerPlayer;
+                    Player_Visuals.serverPlayer = "DOHRÁL JSI - " + Player_Visuals.serverPlayer;
                     Console.ResetColor();
-                    SkipInput = true;
+                    skipInput = true;
                     break;
 
                 case string msg when msg.Contains("VYHRÁL jsi"):
@@ -82,8 +86,8 @@ namespace matura
                         $"\n           |___/                               |__/           "); //https://patorjk.com/software/taag/?utm_source=chatgpt.com#p=testall&h=0&v=0&f=Graffiti&t=you%20won
                     Console.ResetColor();
                     Thread.Sleep(3000);
-                    Player_Visuals.ServerPlayer = "VYHRÁL JSI - " + Player_Visuals.ServerPlayer;
-                    SkipInput = true;
+                    Player_Visuals.serverPlayer = "VYHRÁL JSI - " + Player_Visuals.serverPlayer;
+                    skipInput = true;
                     
                     break;
 
@@ -96,7 +100,7 @@ namespace matura
 
                     Player_Visuals.UpdateScreen();
 
-                    SkipInput = true;
+                    skipInput = true;
                     break;
 
                 case string msg when msg.Contains("firstinfo"):
@@ -107,29 +111,29 @@ namespace matura
 
                     Cards = parts[0].Split(',');
 
-                    Player_Visuals.Cards = Cards[1];
-                    Player_Visuals.LastCard = Cards[0];
+                    Player_Visuals.cards = Cards[1];
+                    Player_Visuals.lastCard = Cards[0];
                     Player_Visuals.UpdateScreen();
 
-                    SkipInput = true;
+                    skipInput = true;
                     break;
 
                 case string msg when msg.Contains("onturn"):
                     parts = receivedMessage.Split('.');
-                    Player_Visuals.WhoIsOnTurn = parts[0];
+                    Player_Visuals.whoIsOnTurn = parts[0];
 
-                    SkipInput = true;
+                    skipInput = true;
                     Player_Visuals.UpdateScreen();
                     break;
 
                 case "MAUMAUPLAYER":
                 case "TAKENNAME":
-                    SkipInput = true; 
+                    skipInput = true; 
                     break;
                 case "YOUWEREKICKED":
                     Console.Clear();
                     Console.WriteLine($"Byl jsi vyhozen.");
-                    SkipInput = true;
+                    skipInput = true;
                     break;
 
                 case string msg when msg.Contains("zkus to znova"):
@@ -138,22 +142,22 @@ namespace matura
 
                 case string msg when msg.Contains("jakou barvu chceš"): 
                     Console.WriteLine($"{receivedMessage}");
-                    CardCount = 5; //vybírá ze 4 barev, ale necham to jako karty pro zjednodušení kodu
+                    cardCount = 5; //vybírá ze 4 barev, ale necham to jako karty pro zjednodušení kodu
                     Console.WriteLine("     Napiš číslo barvy, kterou chceš");
                     break;
                 case string msg when msg.Contains("Otáčí se") || msg.Contains("Rozdaly se") || msg.Contains("DOHRÁL") || msg.Contains("VYHRÁL") || msg.Contains("ZAČALA HRA"):
                     Console.WriteLine($"{receivedMessage}");
                     Player_Visuals.UpdateHistory(receivedMessage);
-                    SkipInput = true;
+                    skipInput = true;
                     break;
                 default:
                     parts = receivedMessage.Split('.');
                     Cards = parts[0].Split('|');
 
-                    Player_Visuals.Cards = Cards[1];
-                    Player_Visuals.LastCard = Cards[0];
+                    Player_Visuals.cards = Cards[1];
+                    Player_Visuals.lastCard = Cards[0];
 
-                    CardCount = int.Parse(parts[1]);
+                    cardCount = int.Parse(parts[1]);
                     Player_Visuals.UpdateScreen();
 
                     Console.WriteLine($"");
@@ -168,20 +172,20 @@ namespace matura
         {
             while (true)
             {
-                if (GlobalSetting.EndOfServer == true)
+                if (GlobalSetting.endOfServer == true)
                 {
                     if (Console.KeyAvailable)
                     {
                         ConsoleKeyInfo key = Console.ReadKey();
                         if (key.Key == ConsoleKey.O)
                         {
-                            Console.WriteLine("Jsi si opravdu jsit?, pokud ano stiskni Enter");
+                            Console.WriteLine("Jsi si opravdu jistý? Pokud ano, stiskni Enter.");
                             if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                             {
                                 LeaveGame();
                             }
                         }
-                        else if (GlobalSetting.SaPOnOneDevice == true)
+                        else if (GlobalSetting.serverAndPlayerOnOneDevice == true)
                         {
                             if (key.Key == ConsoleKey.V)
                             {
@@ -189,7 +193,7 @@ namespace matura
                             }
                             else if (key.Key == ConsoleKey.K)
                             {
-                                Console.WriteLine("Jsi si opravdu jsit?, pokud ano stiskni Enter");
+                                Console.WriteLine("Jsi si opravdu jistý? Pokud ano, stiskni Enter.");
                                 if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                                 {
                                     Server_Game.EndGame();
@@ -205,21 +209,21 @@ namespace matura
         {
             UdpClient udpClient = new UdpClient();
 
-            IPEndPoint IPEndPoint = new IPEndPoint(IPAddress.Broadcast, GlobalSetting.ReturnPort);
+            IPEndPoint IPEndPoint = new IPEndPoint(IPAddress.Broadcast, GlobalSetting.returnPort);
 
             udpClient.Client.ReceiveTimeout = 3000;
             try
             {
-                string Message = $"KICKME.{Player_Client.Nick}";
+                string Message = $"KICKME.{Player_Client.nick}";
 
                 SendMessage(Message, udpClient, IPEndPoint);
 
-                Player_Client.ClientPort = (udpClient.Client.LocalEndPoint as IPEndPoint)?.Port ?? 0;
+                Player_Client.clientPort = (udpClient.Client.LocalEndPoint as IPEndPoint)?.Port ?? 0;
 
                 
-                Player_Client.ServerEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                Player_Client.serverEndPoint = new IPEndPoint(IPAddress.Any, 0);
                 
-                string responseMessage = ReceiveMessage(udpClient, Player_Client.ServerEndPoint);
+                string responseMessage = ReceiveMessage(udpClient, Player_Client.serverEndPoint);
                                 
                 if (responseMessage == "YOUWEREKICKED") 
                 {
@@ -234,7 +238,7 @@ namespace matura
             
             udpClient.Close();
 
-            if (GlobalSetting.SaPOnOneDevice == false) GlobalSetting.RestartGame();
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false) GlobalSetting.RestartGame();
         }
         private static void SendMessage(string response, UdpClient udp, IPEndPoint endPoint)
         {
@@ -253,14 +257,14 @@ namespace matura
             {   lock (lockObj)
                 {
                     string? Input = Console.ReadLine();
-                    if (Input?.ToUpper() == "V" && GlobalSetting.SaPOnOneDevice == true)
+                    if (Input?.ToUpper() == "V" && GlobalSetting.serverAndPlayerOnOneDevice == true)
                     {
                         Server_Game.KickPlayer();
-                        wronginput = false;
+                        wronginput = true; //tady jsi měl chybu
                     }
-                    else if (Input?.ToUpper() == "K" && GlobalSetting.SaPOnOneDevice == true)
+                    else if (Input?.ToUpper() == "K" && GlobalSetting.serverAndPlayerOnOneDevice == true)
                     {
-                        Console.WriteLine("Jsi si opravdu jsit?, pokud ano stiskni Enter");
+                        Console.WriteLine("Jsi si opravdu jistý? Pokud ano, stiskni Enter.");
                         if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                         {
                             Server_Game.EndGame();
@@ -268,7 +272,7 @@ namespace matura
                     }
                     else if (Input?.ToUpper() == "O")
                     {
-                        Console.WriteLine("Jsi si opravdu jsit?, pokud ano stiskni Enter");
+                        Console.WriteLine("Jsi si opravdu jistý? Pokud ano, stiskni Enter.");
                         if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                         {
                             LeaveGame();
@@ -277,11 +281,11 @@ namespace matura
                     else if (int.TryParse(Input, out int response))
                     {
 
-                        if (response < CardCount && response > 0 || !receivedMessage.Contains("jakou barvu chceš") && response <= CardCount) //&& response > 0
+                        if (response < cardCount && response > 0 || !receivedMessage.Contains("jakou barvu chceš") && response <= cardCount) //&& response > 0
                         {
                             Thread.Sleep(100); // bez něj se to občas sekne když je někdo rychlej
-                            IPEndPoint GameServerEndPoint2 = new IPEndPoint(Player_Client.ServerEndPoint.Address, GlobalSetting.ServerPort);
-                            SendMessage(Input, MainUdpClient, GameServerEndPoint2);
+                            IPEndPoint GameServerEndPoint2 = new IPEndPoint(Player_Client.serverEndPoint.Address, GlobalSetting.serverPort);
+                            SendMessage(Input, mainUdpClient, GameServerEndPoint2);
                             wronginput = false;
                         }
                         else
@@ -292,7 +296,7 @@ namespace matura
                             }
                             else
                             {
-                                Console.WriteLine($"     Máš pouze {CardCount} karet");
+                                Console.WriteLine($"     Máš pouze {cardCount} karet");
                             }
                         }
                     }

@@ -5,18 +5,18 @@ namespace matura
     internal class Player
     {
         public IPEndPoint? IPEndPoint;
-        public List<Card> PlayersCards;
-        public string PlayerName;
+        public List<Card> playersCards;
+        public string playerName;
 
         public Player(IPEndPoint? ipendpoint, List<Card> playercards, string playername)
         {
             IPEndPoint = ipendpoint;
-            PlayersCards = playercards;
-            PlayerName = playername;
+            playersCards = playercards;
+            playerName = playername;
         }
         public override string ToString() 
         {
-            return $"{IPEndPoint}  {PlayersCards}  {PlayerName}";
+            return $"{IPEndPoint}  {playersCards}  {playerName}";
         }
     }
     internal class Bot : Player
@@ -27,36 +27,36 @@ namespace matura
         }
         
         List<Card> playableCards = new List<Card>();
-        List<string> CardsColor = new List<string>();
+        List<string> cardsColors = new List<string>();
 
         public int BotPlayCard(Bot bot, Card cardontop)
         {
             playableCards.Clear();
 
-            if (GlobalSetting.SaPOnOneDevice == false)
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false)
             {
                 Console.WriteLine("botovi karty:");
             }
-            foreach (Card card in bot.PlayersCards)
+            foreach (Card card in bot.playersCards)
             {
-                if (GlobalSetting.SaPOnOneDevice == false)
+                if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                 {
                     Console.WriteLine($"{card}");
                 }
                 
                 //poslední eso, co platí
-                if (cardontop.CardValue == "Eso" && Server_Game.AceFactor == true)
+                if (cardontop.cardValue == "Eso" && Server_Game.aceFactor == true)
                 {                    
-                    if (card.CardValue == "Eso")
+                    if (card.cardValue == "Eso")
                     {
                         playableCards.Add(card);
                     }                    
                 }
 
                 //poslední 7, co platí
-                else if (cardontop.CardValue == "7" && Server_Game.SevenCount > 0)
+                else if (cardontop.cardValue == "7" && Server_Game.sevenCount > 0)
                 {                    
-                    if (card.CardValue == "7")
+                    if (card.cardValue == "7")
                     {
                         playableCards.Add(card);
                     }                    
@@ -65,16 +65,16 @@ namespace matura
                 //poslední cokoli - zahraje cokoli (kromě svrška)
                 else
                 {
-                    if (cardontop.CardValue == "svršek") 
+                    if (cardontop.cardValue == "svršek") 
                     {                        
-                        if (!string.IsNullOrEmpty(Server_Game.Color) && card.CardColor == Server_Game.Color && card.CardValue != "svršek")
+                        if (!string.IsNullOrEmpty(Server_Game.selectedColor) && card.cardColor == Server_Game.selectedColor && card.cardValue != "svršek")
                         {
                             playableCards.Add(card);
                         }
                     }
                     else
                     {
-                        if (cardontop.CardValue == card.CardValue && card.CardValue != "svršek" || cardontop.CardColor == card.CardColor && card.CardValue != "svršek")
+                        if (cardontop.cardValue == card.cardValue && card.cardValue != "svršek" || cardontop.cardColor == card.cardColor && card.cardValue != "svršek")
                         {
                             playableCards.Add(card);
                         }
@@ -92,25 +92,25 @@ namespace matura
                 int CardIndex = rnd.Next(0, CardCount);
 
                 Card playcard = playableCards[CardIndex];
-                int PlayCardIndex = bot.PlayersCards.FindIndex(0, PlayersCards.Count, card => card == playcard); // funkci mi ukazal chatGPT
+                int PlayCardIndex = bot.playersCards.FindIndex(0, playersCards.Count, card => card == playcard); // funkci mi ukazal chatGPT
                 return PlayCardIndex + 1; //u hrace tam je pro zahrání -1, tak at se to da napojit na ten kod
             }
             else
             {
                 // kontrola svršků - pokud bot neměl co zahrát, tak zkusí jestli nemá svrška
-                foreach (Card card in bot.PlayersCards)
+                foreach (Card card in bot.playersCards)
                 {
-                    if (card.CardValue == "svršek" && Server_Game.SevenCount <= 0 &&  Server_Game.AceFactor != true) //svršci jdou jedině, poud neni 7 ani eso
+                    if (card.cardValue == "svršek" && Server_Game.sevenCount <= 0 &&  Server_Game.aceFactor != true) //svršci jdou jedině, poud neni 7 ani eso
                     {
-                        Server_Game.Color = GetMostFrequentColor(bot);
+                        Server_Game.selectedColor = GetMostFrequentColor(bot);
 
-                        if (GlobalSetting.SaPOnOneDevice == false)
+                        if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                         {
-                            Console.WriteLine($"zahrál svrška a změnil na: {Server_Game.Color}");
+                            Console.WriteLine($"zahrál svrška a změnil na: {Server_Game.selectedColor}");
                         }
-                        Server_Game.GameInfo = $"zahrál svrška a změnil na {Server_Game.Color}";
-                        Server_Game.QueenFactor = false;
-                        Server_Game.ChangedBotColor = true;
+                        Server_Game.gameInfo = $"zahrál svrška a změnil na {Server_Game.selectedColor}";
+                        Server_Game.queenFactor = false;
+                        Server_Game.botChangedColor = true;
                         
                         playableCards.Add(card);                    
                     }
@@ -127,16 +127,16 @@ namespace matura
         }
         private string GetMostFrequentColor(Bot bot)
         {
-            CardsColor.Clear();
+            cardsColors.Clear();
 
-            foreach (var card in bot.PlayersCards)
+            foreach (var card in bot.playersCards)
             {
-                if (card.CardValue != "svršek") //vybere barvu z karet, co nejsou svršci
+                if (card.cardValue != "svršek") //vybere barvu z karet, co nejsou svršci
                 {
-                    CardsColor.Add(card.CardColor);
+                    cardsColors.Add(card.cardColor);
                 }
             }
-            var mostFrequentColor = CardsColor
+            var mostFrequentColor = cardsColors
                 .GroupBy(color => color)                // Seskupíme podle barvy
                 .OrderByDescending(group => group.Count()) // Seřadíme podle počtu výskytů
                 .FirstOrDefault()?.Key;                 // Vezmeme barvu s největším výskytem - poradil chatGPT
@@ -145,13 +145,13 @@ namespace matura
          }
         private string RandomColor()
         {
-            if (CardsColor.Count > 0)
+            if (cardsColors.Count > 0)
             {
                 Random rnd = new Random();
-                int ColorCount = CardsColor.Count;
+                int ColorCount = cardsColors.Count;
                 int CardIndex = rnd.Next(0, ColorCount);
 
-                string ChoseColor = CardsColor[CardIndex];
+                string ChoseColor = cardsColors[CardIndex];
                 return ChoseColor;
             }
             else 
@@ -159,7 +159,7 @@ namespace matura
                 Random rnd = new Random();
                 int CardIndex = rnd.Next(0, 4);
                 
-                string ChoseColor = PackofCards.CardClolor[CardIndex];
+                string ChoseColor = PackofCards.cardClolor[CardIndex];
                 return ChoseColor;
             }
         }                

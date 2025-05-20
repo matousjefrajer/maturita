@@ -5,13 +5,13 @@
         public static List<Card> discardpile = new List<Card>(); 
         public static Random random = new Random();
 
-        public static string[] CardClolor = { "Srdce", "Listy", "Kule", "Žaludy" };  
-        private static string[] CardValue = { "7", "8", "9", "10", "spodek", "svršek", "Král", "Eso" };  
+        public static string[] cardClolor = { "Srdce", "Listy", "Kule", "Žaludy" };  
+        private static string[] cardValue = { "7", "8", "9", "10", "spodek", "svršek", "Král", "Eso" };  
         public PackofCards()
         {           
-            foreach (var cardcolor in CardClolor)
+            foreach (var cardcolor in cardClolor)
             {
-                foreach (var cardvalue in CardValue)
+                foreach (var cardvalue in cardValue)
                 {
                     deck.Add(new Card(cardcolor, cardvalue)); 
                 }
@@ -51,20 +51,20 @@
             
             for (int i = 0; i < nuberofcards && deck.Count > 0; i++)
             {                
-                player.PlayersCards.Add(PackofCards.deck[0]); 
+                player.playersCards.Add(PackofCards.deck[0]); 
                                 
                 deck.RemoveAt(0);
             }
             if (deck.Count == 0) 
             {
-                Server_Game.GameInfo += "je prázdný balíček a již neni co lízat";
+                Server_Game.gameInfo += "je prázdný balíček a již neni co lízat";
             }
         }
         public static void PlayCard(int cardindex, Player player)
         {
-            Card playedCard = player.PlayersCards[cardindex];
+            Card playedCard = player.playersCards[cardindex];
             
-            player.PlayersCards.RemoveAt(cardindex);
+            player.playersCards.RemoveAt(cardindex);
             discardpile.Add(playedCard);
         }
         public static void DealCards()
@@ -88,7 +88,7 @@
             
             discardpile.Add(firstindeck);
 
-            if (GlobalSetting.SaPOnOneDevice == false)
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false)
             {
                 PlayerList.PrintPlayerList();
             }
@@ -108,14 +108,14 @@
                 discardpile.Clear();
                 discardpile.Add(LastCard);
 
-                if (GlobalSetting.SaPOnOneDevice == false)
+                if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                 {
                     Console.WriteLine("otáčí se balíček");
                 }
                 
                 if (deck.Count == 0) 
                 {
-                    if (GlobalSetting.SaPOnOneDevice == false)
+                    if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                     {
                         Console.WriteLine("Měl štěstí, protože balíček je prázdný"); 
                     }
@@ -124,7 +124,5 @@
                 Server_Game.SendToAll(message);
             }
         }
-
     }
-    
 }

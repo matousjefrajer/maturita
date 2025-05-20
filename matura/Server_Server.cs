@@ -6,14 +6,14 @@ namespace matura
 {
     internal class Server_Server
     {
-        private static bool StillSearch = true;
+        private static bool stillSearch = true;
         public static UdpClient udpClient = new UdpClient();
-        public static UdpClient ReturnudpClient = new UdpClient();
-        public static bool TakenName;
+        public static UdpClient returnUdpClient = new UdpClient();
+        public static bool takenName;
         
         public static void Search()
         {
-            if (GlobalSetting.SaPOnOneDevice == false)
+            if (GlobalSetting.serverAndPlayerOnOneDevice == false)
             {
                 Console.WriteLine("Spustil se server.");
                 Console.WriteLine("Stiskni \"B\" pro přidání bota, \"V\" pro vyhození hráče, nebo \"K\" pro konec hledání a začátek hry. " +
@@ -23,11 +23,11 @@ namespace matura
 
             try
             {
-                udpClient = new UdpClient(GlobalSetting.ServerPort); //https://learn.microsoft.com/cs-cz/dotnet/api/system.net.sockets.udpclient?view=net-8.0
-                ReturnudpClient = new UdpClient(GlobalSetting.ReturnPort);
+                udpClient = new UdpClient(GlobalSetting.serverPort); //https://learn.microsoft.com/cs-cz/dotnet/api/system.net.sockets.udpclient?view=net-8.0
+                returnUdpClient = new UdpClient(GlobalSetting.returnPort);
 
                 udpClient.Client.ReceiveTimeout = 3000; 
-                ReturnudpClient.Client.ReceiveTimeout = 3100;
+                returnUdpClient.Client.ReceiveTimeout = 3100;
             }
             catch (SocketException) 
             {
@@ -39,14 +39,14 @@ namespace matura
             Thread keyThread = new Thread(WhichKeay); 
             keyThread.Start();
 
-            while (StillSearch)
+            while (stillSearch)
             {
                 IsThereInternet();
 
                 LookForPlayer();
             }
 
-            if (GlobalSetting. SaPOnOneDevice == false)
+            if (GlobalSetting. serverAndPlayerOnOneDevice == false)
             {
                 Console.WriteLine("Konec hledání");
             }
@@ -66,12 +66,12 @@ namespace matura
                     string[] parts = returnData.Split('.');
                     PlayerName = parts[1];
 
-                    TakenName = false;
+                    takenName = false;
 
                     PlayerList.AddPlayer(IpEndPoint, PlayerName);
                     
                     string response;
-                    if (TakenName == false)
+                    if (takenName == false)
                     {
                         response = "MAUMAUSERVER";
                     }
@@ -86,19 +86,19 @@ namespace matura
        
                     if(PlayerList.playerIPList.Count > 6)
                     {
-                        if (GlobalSetting.SaPOnOneDevice == false)
+                        if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                         {
                             Console.WriteLine($"Byl naplněn možný počet hráčů");
                         }
-                        StillSearch = false;
-                        GlobalSetting.EndOfServer = true;
+                        stillSearch = false;
+                        GlobalSetting.endOfServer = true;
                     }
                 }
             }
             catch (SocketException e) when (e.SocketErrorCode == SocketError.TimedOut) { }
             catch (SocketException e)
             {
-                if (GlobalSetting.SaPOnOneDevice == false)
+                if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                 {
                     Console.WriteLine($"Chyba: {e}");
                 }
@@ -116,7 +116,7 @@ namespace matura
             }
             catch (SocketException e)
             {
-                if (GlobalSetting.SaPOnOneDevice == false)
+                if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                 {
                     Console.WriteLine($"Žádné připojení k internetu (error message: {e.SocketErrorCode})");
                 }
@@ -125,7 +125,7 @@ namespace matura
         }
         private static void WhichKeay()
         {
-            while (StillSearch)
+            while (stillSearch)
             {
                 if (Console.KeyAvailable)
                 {
@@ -134,12 +134,12 @@ namespace matura
                     {
                         if (PlayerList.playerIPList.Count > 6)
                         {
-                            if (GlobalSetting.SaPOnOneDevice == false)
+                            if (GlobalSetting.serverAndPlayerOnOneDevice == false)
                             {
                                 Console.WriteLine($"Byl naplněn možný počet hráčů");
                             }
-                            StillSearch = false;
-                            GlobalSetting.EndOfServer = true;
+                            stillSearch = false;
+                            GlobalSetting.endOfServer = true;
                         }
                         else
                         {
@@ -148,13 +148,13 @@ namespace matura
                     }
                     else if (key.Key == ConsoleKey.K)
                     {
-                        Console.WriteLine("Jsi si opravdu jsit?, pokud ano stiskni Enter");
+                        Console.WriteLine("Jsi si opravdu jistý? Pokud ano, stiskni Enter.");
                         if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                         {
                             Console.WriteLine("\nKonec hledání");
 
-                            StillSearch = false; //ukonci vsehcno
-                            GlobalSetting.EndOfServer = true;
+                            stillSearch = false; //ukonci vsehcno
+                            GlobalSetting.endOfServer = true;
                         }
                     }
                     else if (key.Key == ConsoleKey.V)
@@ -163,7 +163,7 @@ namespace matura
                     }
                     else if (key.Key == ConsoleKey.Z)
                     {
-                        Console.WriteLine("Jsi si opravdu jsit?, pokud ano stiskni Enter");
+                        Console.WriteLine("Jsi si opravdu jistý? Pokud ano, stiskni Enter.");
                         if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                         {
                            GlobalSetting.RestartGame(); 
@@ -178,7 +178,7 @@ namespace matura
         {
             foreach (var p in PlayerList.playerIPList)
             {
-                Console.WriteLine($"- {p.PlayerName}");
+                Console.WriteLine($"- {p.playerName}");
             }
             Console.WriteLine("Zadej jméno hráče, kterého chceš vyhodit, nebo \"nikdo\":");
             string playertokick;
@@ -193,7 +193,7 @@ namespace matura
                 }
                 else
                 {
-                    Player? playerToKick = PlayerList.playerIPList.FirstOrDefault(p => p.PlayerName == playertokick);
+                    Player? playerToKick = PlayerList.playerIPList.FirstOrDefault(p => p.playerName == playertokick);
                     if (playertokick == "nikdo")
                     {
                         Console.WriteLine("Nikdo nebyl vyhozen.");
@@ -205,7 +205,7 @@ namespace matura
                     }                    
                     else
                     {
-                        Console.WriteLine("Jsi si opravdu jsit?, pokud ano stiskni Enter");
+                        Console.WriteLine("Jsi si opravdu jistý? Pokud ano, stiskni Enter.");
                         if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                         {
                             if (playerToKick.IPEndPoint != null)

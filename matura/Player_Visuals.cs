@@ -2,11 +2,11 @@
 {
     internal class Player_Visuals
     {
-        public static string ServerPlayer = "";
-        public static string WhoIsOnTurn = "";
-        public static string CardOnTop = "";
-        public static string Cards = "";
-        public static string LastCard = "";
+        public static string serverPlayer = "";
+        public static string whoIsOnTurn = "";
+        public static string cardOnTop = "";
+        public static string cards = "";
+        public static string lastCard = "";
 
         private static string[] history = new string[4];
         private static string[] names = new string[7];
@@ -16,7 +16,7 @@
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($" {ServerPlayer} " + 
+            Console.WriteLine($" {serverPlayer} " + 
                 $"\n    _____________________________" +
                 $"\n    |Historie hry:               " +
                 $"\n    |{history[0]}                  " +
@@ -25,7 +25,7 @@
                 $"\n    |{history[3]}                  " +
                 $"\n    |____________________________" +
                 $"\n    |Hraje:             " +
-                $"\n    | {WhoIsOnTurn}     " +
+                $"\n    | {whoIsOnTurn}     " +
                 $"\n    |________________________________________________________    " +
                 $"\n    |Hráči + počet karet:___________________________________|    " +
                 $"\n    |{string.Join("|", names)}|    " +
@@ -33,9 +33,9 @@
                 $"\n    |_______________________________________________________|    " +
                 $"\n ");
             Console.ForegroundColor = ConsoleColor.Cyan; 
-            Console.WriteLine($"                       {LastCard}");
+            Console.WriteLine($"                       {lastCard}");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"{Cards}                                           ");
+            Console.WriteLine($"{cards}                                           ");
             Console.ResetColor();
         }
         public static void UpdateHistory(string newhistory)
